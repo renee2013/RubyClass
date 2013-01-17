@@ -3,7 +3,7 @@ require 'minitest/autorun'
 
 
 class ParkingLotTest < MiniTest::Unit::TestCase
-	def test_DisplayEmptySlots
+	def test_get_empty_slot_cnt
 		test_parkinglot = ParkingLot.new(0)
 		assert_equal 0, test_parkinglot.getEmptySlotsCnt
 		
