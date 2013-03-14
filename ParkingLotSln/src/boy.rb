@@ -1,12 +1,12 @@
 class Boy
 
-  def initialize(slotNumber)
-    @slotNumber = slotNumber
+  def initialize(number)
+    @parkingLotNumber = number
   end
 
 
   def isThereEmptySlotAvailable()
-    if (@slotNumber != 0)
+    if (@parkingLotNumber != 0)
       return true
     end
     return false
