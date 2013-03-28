@@ -55,23 +55,32 @@ class Boy
     maxEmptySlotsLotIndex
   end
 
+  def find_first_parking_lot_with_empty_slots
+    i = 0
+    for parkingLot in @parkingLots
+      if (parkingLot != nil)
+        emptySlotsCnt = parkingLot.getEmptySlotsCnt
+        break if (emptySlotsCnt > 0)
+      end
+      i += 1
+    end
+
+    i
+  end
+
   def parking(car)
     if ((@parkingLots == nil) || (@parkingLots.length <= 0))
       return nil
     end
 
-    i = 0
-    for parkingLot in @parkingLots
-      if (parkingLot != nil)
-        ticketNo = parkingLot.parking(car)
-        if (ticketNo >= 0)
-          return BoyTicket.new(i, ticketNo)
-        end
-      end
-      i += 1
+    i = find_first_parking_lot_with_empty_slots
+
+    if (i >=  @parkingLots.length)
+      return nil
     end
 
-    return nil
+    ticketNo = @parkingLots[i].parking(car)
+    return BoyTicket.new(i, ticketNo)
   end
 
   def getCar(boyTicket)
