@@ -23,6 +23,38 @@ class Boy
     return false
   end
 
+  def smart_parking(car)
+    if ((@parkingLots == nil) || (@parkingLots.length <= 0))
+      return nil
+    end
+
+    maxEmptySlotsLotIndex = find_parking_lot_with_most_empty_slots()
+
+    if (maxEmptySlotsLotIndex < 0)
+      return nil
+    end
+
+    ticketNo = @parkingLots[maxEmptySlotsLotIndex].parking(car)
+    return BoyTicket.new(maxEmptySlotsLotIndex, ticketNo)
+  end
+
+  def find_parking_lot_with_most_empty_slots
+    i = 0
+    maxEmptySlotsLotIndex = -1
+    currentMaxEmptySlots = 0
+    for parkingLot in @parkingLots
+      if (parkingLot != nil)
+        emptySlots = parkingLot.getEmptySlotsCnt
+        if (emptySlots > currentMaxEmptySlots)
+          currentMaxEmptySlots = emptySlots
+          maxEmptySlotsLotIndex = i
+        end
+      end
+      i += 1
+    end
+    maxEmptySlotsLotIndex
+  end
+
   def parking(car)
     if ((@parkingLots == nil) || (@parkingLots.length <= 0))
       return nil
