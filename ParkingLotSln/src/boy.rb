@@ -24,10 +24,6 @@ class Boy
   end
 
   def smart_parking(car)
-    if ((@parkingLots == nil) || (@parkingLots.length <= 0))
-      return nil
-    end
-
     maxEmptySlotsLotIndex = find_parking_lot_with_most_empty_slots()
 
     if (maxEmptySlotsLotIndex < 0)
@@ -39,6 +35,10 @@ class Boy
   end
 
   def find_parking_lot_with_most_empty_slots
+    if ((@parkingLots == nil) || (@parkingLots.length <= 0))
+      return -1
+    end
+
     i = 0
     maxEmptySlotsLotIndex = -1
     currentMaxEmptySlots = 0
@@ -56,6 +56,10 @@ class Boy
   end
 
   def find_first_parking_lot_with_empty_slots
+    if ((@parkingLots == nil) || (@parkingLots.length <= 0))
+      return -1
+    end
+
     i = 0
     for parkingLot in @parkingLots
       if (parkingLot != nil)
@@ -65,17 +69,17 @@ class Boy
       i += 1
     end
 
+    if (i >=  @parkingLots.length)
+      return -1
+    end
+
     i
   end
 
   def parking(car)
-    if ((@parkingLots == nil) || (@parkingLots.length <= 0))
-      return nil
-    end
-
     i = find_first_parking_lot_with_empty_slots
 
-    if (i >=  @parkingLots.length)
+    if (i < 0)
       return nil
     end
 
