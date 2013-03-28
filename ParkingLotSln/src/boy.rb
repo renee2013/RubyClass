@@ -23,17 +23,6 @@ class Boy
     return false
   end
 
-  def smart_parking(car)
-    maxEmptySlotsLotIndex = find_parking_lot_with_most_empty_slots()
-
-    if (maxEmptySlotsLotIndex < 0)
-      return nil
-    end
-
-    ticketNo = @parkingLots[maxEmptySlotsLotIndex].parking(car)
-    return BoyTicket.new(maxEmptySlotsLotIndex, ticketNo)
-  end
-
   def find_parking_lot_with_most_empty_slots
     if ((@parkingLots == nil) || (@parkingLots.length <= 0))
       return -1
@@ -76,8 +65,8 @@ class Boy
     i
   end
 
-  def parking(car)
-    i = find_first_parking_lot_with_empty_slots
+  def parking_with_strategy(car, park_strategy)
+    i = park_strategy.call
 
     if (i < 0)
       return nil
@@ -85,6 +74,16 @@ class Boy
 
     ticketNo = @parkingLots[i].parking(car)
     return BoyTicket.new(i, ticketNo)
+  end
+
+  def parking(car)
+    strategy = Proc.new {find_first_parking_lot_with_empty_slots}
+    return parking_with_strategy(car, strategy)
+  end
+
+  def smart_parking(car)
+    strategy = Proc.new {find_parking_lot_with_most_empty_slots}
+    return parking_with_strategy(car, strategy)
   end
 
   def getCar(boyTicket)
