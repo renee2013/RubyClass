@@ -123,6 +123,13 @@ class BoyTest < MiniTest::Unit::TestCase
     ticket = test_Boy.parking(to_park_car)
     assert_nil(ticket)
   end
+
+  def test_find_first_parking_lot_with_empty_slots
+    test_Boy = Boy.new([ParkingLot.new(0), nil, ParkingLot.new(5), ParkingLot.new(4)])
+
+    parking_lotIndex = test_Boy.find_first_parking_lot_with_empty_slots
+    assert_equal 2, parking_lotIndex
+  end
 end
 
 
