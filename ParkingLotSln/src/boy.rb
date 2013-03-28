@@ -31,6 +31,7 @@ class Boy
     i = 0
     maxEmptySlotsLotIndex = -1
     currentMaxEmptySlots = 0
+
     for parkingLot in @parkingLots
       if (parkingLot != nil)
         emptySlots = parkingLot.getEmptySlotsCnt
